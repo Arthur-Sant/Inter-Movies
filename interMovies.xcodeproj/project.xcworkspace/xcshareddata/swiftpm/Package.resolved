@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Fakery",
+        "repositoryURL": "https://github.com/vadymmarkov/Fakery",
+        "state": {
+          "branch": null,
+          "revision": "71cb3bf36a808534659d1248780c2bf3c4c4fc91",
+          "version": "5.1.0"
+        }
+      },
+      {
+        "package": "Kingfisher",
+        "repositoryURL": "https://github.com/onevcat/Kingfisher.git",
+        "state": {
+          "branch": null,
+          "revision": "0c02c46cfdc0656ce74fd0963a75e5000a0b7f23",
+          "version": "7.1.2"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
