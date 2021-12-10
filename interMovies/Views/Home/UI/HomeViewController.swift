@@ -138,16 +138,16 @@ class HomeViewController: UIViewController {
     func setupUI(){
         let gray500 = UIColor(named: "gray500")
         view.backgroundColor = gray500
-        setupUINav(color: gray500!)
+        setupUINav()
         setupUISearch()
     }
     
-    func setupUINav(color gray500: UIColor){
+    func setupUINav(){
         navigationController?.navigationBar.isHidden = false
         
         let navItem = navigationController?.navigationBar.standardAppearance
-        navItem?.backgroundColor = gray500
-        navItem?.shadowColor = gray500
+        navItem?.backgroundColor = UIColor.clear
+        navItem?.shadowColor = UIColor.clear
         
         navigationItem.leftBarButtonItem = backBtnBar
         navigationItem.rightBarButtonItem = themeBtnBar
