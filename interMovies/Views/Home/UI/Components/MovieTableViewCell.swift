@@ -71,7 +71,7 @@ class MovieTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private var favorites = UserDefaults.standard.value(forKey: "favorites") as? [Int]
+    private var favorites = [Int]()
     var faker = Faker()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -96,18 +96,17 @@ class MovieTableViewCell: UITableViewCell {
         movieNameLbl.text = movie.title
         movieDate.text = movie.releaseDate
         
-        var i = 0
-        while i < 3 {
+        for _ in 0..<3 {
             let label = UILabel()
             label.font = UIFont(name: "Inter-Bold", size: 12)
             label.textColor = .white
-            label.text = faker.name.name()
+            label.text = faker.lorem.word()
             categoriesStv.addArrangedSubview(label)
-            
-            i += 1
         }
         
-        if favorites != nil && favorites!.contains(movie.id){
+        favorites = UserDefaults.standard.value(forKey: "favorites") as? [Int] ?? []
+        
+        if favorites.contains(movie.id){
             favoriteImg.image = UIImage(systemName: "heart.fill")
         }else{
             favoriteImg.image = UIImage(systemName: "heart")

@@ -12,13 +12,8 @@ protocol MovieDetailViewModelDelegate {
     func showMessage(_ message: String)
 }
 
-protocol MovieDetailCellDelagate {
-    func updateCell()
-}
-
 class MovieDetailViewModel {
     var delegate: MovieDetailViewModelDelegate?
-    var cellDegalate: MovieDetailCellDelagate?
     
     let userDefaults = UserDefaults.standard
     var favorites = [Int]()
@@ -35,13 +30,18 @@ class MovieDetailViewModel {
     
     func addFavoritesOrRemove(movieId id: Int, add: Bool){
         
+        var message = ""
+        
         if add {
             favorites.append(id)
+            message = "Filme adicionado na lista de favoritos"
         }else{
-            let newfavorites = favorites.filter { $0 != id }
-            userDefaults.setValue(newfavorites, forKey: "favorites")
+            favorites = favorites.filter { $0 != id }
+            message = "Filme removido da lista de favoritos"
         }
+        userDefaults.setValue(favorites, forKey: "favorites")
         
-        cellDegalate?.updateCell()
+        delegate?.showMessage(message)
+        checkIfFavorite(movieId: id)
     }
 }

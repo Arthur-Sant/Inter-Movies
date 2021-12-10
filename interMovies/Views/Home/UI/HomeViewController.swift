@@ -83,12 +83,19 @@ class HomeViewController: UIViewController {
         setup()
         
         viewModel?.delegate = self
-        
         viewModel?.fetchMovies()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if cellSelect != nil {
+            moviesTableView.reloadRows(at: [cellSelect!], with: .fade)
+        }
     }
 
     var movies: [Movie] = []
     var filterMovies: [Movie] = []
+    var cellSelect: IndexPath? = nil
     var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
@@ -136,18 +143,17 @@ class HomeViewController: UIViewController {
     }
     
     func setupUI(){
-        let gray500 = UIColor(named: "gray500")
-        view.backgroundColor = gray500
+        view.backgroundColor = UIColor(named: "gray500")
         setupUINav()
         setupUISearch()
     }
     
     func setupUINav(){
-        navigationController?.navigationBar.isHidden = false
-        
-        let navItem = navigationController?.navigationBar.standardAppearance
-        navItem?.backgroundColor = UIColor.clear
-        navItem?.shadowColor = UIColor.clear
+        let navBar = navigationController!.navigationBar
+        let gray500 = UIColor(named: "gray500")
+        navBar.isHidden = false
+        navBar.standardAppearance.backgroundColor = gray500
+        navBar.standardAppearance.shadowColor = gray500
         
         navigationItem.leftBarButtonItem = backBtnBar
         navigationItem.rightBarButtonItem = themeBtnBar
@@ -217,6 +223,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             movie = movies[indexPath.row]
         }
         
+        cellSelect = indexPath
         navigationController?.pushViewController(MovieDetailViewController(movie: movie), animated: true)
     }
 }
@@ -235,7 +242,5 @@ extension HomeViewController: HomeViewModelDelegate {
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
-    
-    
 }
 
